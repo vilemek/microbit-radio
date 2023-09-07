@@ -29,39 +29,69 @@ input.onButtonPressed(Button.A, function on_button_pressed_a() {
             basic.clearScreen()
             letter0 += 1
             basic.showString(String.fromCharCode(letter0))
-            basic.pause(200)
         } else {
             letter0 = 64
+        }
+        
+    } else if (pos == 1) {
+        if (letter1 <= 90) {
+            basic.clearScreen()
+            letter1 += 1
+            basic.showString(String.fromCharCode(letter1))
+        } else {
+            letter1 = 64
+        }
+        
+    } else if (pos == 2) {
+        if (letter2 <= 90) {
+            basic.clearScreen()
+            letter2 += 1
+            basic.showString(String.fromCharCode(letter2))
+        } else {
+            letter2 = 64
         }
         
     }
     
 })
 input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
-    basic.showString(String.fromCharCode(letter0))
+    basic.showString(String.fromCharCode(letter0) + String.fromCharCode(letter1) + String.fromCharCode(letter2))
 })
 radio.onReceivedString(function on_received_string(receivedString: string) {
     basic.showString(receivedString)
-    basic.pause(200)
-    basic.clearScreen()
 })
 input.onButtonPressed(Button.B, function on_button_pressed_b() {
     
     if (pos < 16) {
         pos += 1
+        basic.clearScreen()
     } else {
         pos = 0
     }
     
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function on_logo_pressed() {
-    radio.sendString(String.fromCharCode(letter0))
+    
+    if (letter0 == 64) {
+        letter0 = lettern
+    }
+    
+    if (letter1 == 64) {
+        letter1 = lettern
+    }
+    
+    if (letter2 == 64) {
+        letter2 = lettern
+    }
+    
+    radio.sendString(String.fromCharCode(letter0) + String.fromCharCode(letter1) + String.fromCharCode(letter2))
 })
 let pos = 0
 let ready = 0
 led.plot(4, 0)
 radio.setGroup(1)
 radio.sendNumber(99)
+let lettern = 32
 let letter0 = 64
 let letter1 = 64
 let letter2 = 64
@@ -78,4 +108,3 @@ let letterC = 64
 let letterD = 64
 let letterE = 64
 let letterF = 64
-ready = 0
